@@ -31,7 +31,7 @@ public class AuthenticationActivity extends AppCompatActivity {
         else{
             Toast.makeText(this, "Current User  Null", Toast.LENGTH_LONG).show();
         }
-        new FragmentUtilities(this).addFragment(R.id.container,fragmentSignup);
+        new FragmentUtilities(this).addFragment(R.id.container,fragmentLogIn);
 
     }
     @Override
