@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.saif.htclone.R;
@@ -14,8 +15,9 @@ import com.saif.htclone.R;
 import Utils.FragmentUtilities;
 
 public class FragmentLogIn extends Fragment implements View.OnClickListener {
-    View view;
-    TextView tvSignUp;
+    private View view;
+    private EditText etPhone;
+    private TextView tvSignUp;
 
     @Nullable
     @Override

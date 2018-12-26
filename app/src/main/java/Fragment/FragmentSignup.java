@@ -29,6 +29,8 @@ import com.saif.htclone.R;
 
 import java.util.concurrent.TimeUnit;
 
+import Utils.FragmentUtilities;
+
 public class FragmentSignup extends Fragment  implements View.OnClickListener {
     private View view;
 
@@ -194,12 +196,21 @@ public class FragmentSignup extends Fragment  implements View.OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.e(TAG, "signInWithCredential:success");
+                            Log.e(TAG, "signInWithCredential:success: ");
 
                             FirebaseUser user = task.getResult().getUser();
                             // [START_EXCLUDE]
-                            phoneHeadingText.setText("Successfully Signned In");
-                            phoneSubHeadingText.setText("User id: "+user.getUid());
+                            phoneHeadingText.setText("Successfully Signed In");
+
+                           // creatEmailPassAccount(user.getPhoneNumber().replace("+88",""),"Hello2019");
+
+                            FragmentPassWordSet fragmentPassWordSet=new FragmentPassWordSet();
+                            Bundle args = new Bundle();
+                            args.putString("pNumber",user.getPhoneNumber().replace("+88","") );
+                            fragmentPassWordSet.setArguments(args);
+
+                            new FragmentUtilities(getActivity()).replaceFragmentWithoutBackTrace(R.id.container,fragmentPassWordSet);
+                            // Log.e(TAG, "signInWithCredential:success");
 
                             // [END_EXCLUDE]
                         } else {
@@ -219,6 +230,34 @@ public class FragmentSignup extends Fragment  implements View.OnClickListener {
                         }
                     }
                 });
+    }
+
+    private void creatEmailPassAccount(String email, String pass) {
+        // [START create_user_with_email]
+        String mEmail=email+"@saif.com";
+        mAuth.createUserWithEmailAndPassword(mEmail, pass)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.e(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                           // updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(getActivity(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                           // updateUI(null);
+                        }
+
+                        // [START_EXCLUDE]
+                        // hideProgressDialog();
+                        // [END_EXCLUDE]
+                    }
+                });
+        // [END create_user_with_email]
     }
     // [END sign_in_with_phone]
 
