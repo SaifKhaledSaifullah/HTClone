@@ -18,49 +18,83 @@
 
 
         <TextView
-            android:id="@+id/tvPhoneHeading"
+            android:id="@+id/phoneHeadingText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_phonenumber_heading"
-            android:textSize="20sp"
+            android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:textAllCaps="true"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <TextView
-            android:id="@+id/tvPhoneSubHead"
+            android:id="@+id/phoneSubHeadingText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_phonenumber_sub_heading"
-            android:textSize="14sp"
             android:textColor="@color/colorGrey"
-            />
+            android:textSize="14sp" />
 
-
-        <EditText
-            android:id="@+id/etPassword"
+        <LinearLayout
+            android:id="@+id/phoneNumberGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_password"
-            android:imeActionId="6"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/phoneNumberField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="@string/hint_phone"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:singleLine="true" />
 
 
-        <Button
-            android:id="@+id/btnSignIn"
-            style="?android:textAppearanceSmall"
+            <Button
+                android:id="@+id/btnSignUp"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/btn_continue"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/varificationGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/btn_continue"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
 
+            <EditText
+                android:id="@+id/verifyCodeField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="Enter Verification Code"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+
+            <Button
+                android:id="@+id/btnVerify"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Verify Code"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

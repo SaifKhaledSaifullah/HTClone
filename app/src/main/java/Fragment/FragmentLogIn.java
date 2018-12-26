@@ -7,16 +7,34 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.saif.htclone.R;
 
-public class FragmentLogIn extends Fragment {
+import Utils.FragmentUtilities;
+
+public class FragmentLogIn extends Fragment implements View.OnClickListener {
     View view;
+    TextView tvSignUp;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_log_in, container, false);
+        tvSignUp=view.findViewById(R.id.tvSignUp);
+        tvSignUp.setOnClickListener(this);
+
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.tvSignUp:
+                FragmentSignup fragmentSignup=new FragmentSignup();
+                new FragmentUtilities(getActivity()).replaceFragment(R.id.container,fragmentSignup);
+        }
+
     }
 }
