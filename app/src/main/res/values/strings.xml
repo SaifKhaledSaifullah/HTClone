@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">HTClone</string>
+    <string name="txt_SignUp">Don\'t have an account? Create One</string>
+    <string name="txt_sign_in">LogIN</string>
+    <string name="btn_continue">Continue</string>
+    <string name="hint_phone">01XXXXXXXXX</string>
+    <string name="hint_password">Password</string>
+    <string name="txt_phonenumber_heading">Verify you r mobile number</string>
+    <string name="txt_phonenumber_sub_heading">Please Enter your phone number to get a verification code</string>
+</resources>
