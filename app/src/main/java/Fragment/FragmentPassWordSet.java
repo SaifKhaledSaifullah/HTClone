@@ -18,10 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.saif.htclone.R;
-
-import org.w3c.dom.Text;
 
 import Utils.FragmentUtilities;
 
@@ -35,7 +32,7 @@ public class FragmentPassWordSet extends Fragment {
     // [END declare_auth]
 
     private static final String TAG = FragmentPassWordSet.class.getSimpleName();
-    private String phoneNumber="";
+    private String phoneNumber = "";
 
     @Nullable
     @Override
@@ -48,22 +45,19 @@ public class FragmentPassWordSet extends Fragment {
         // [END initialize_auth]
         phoneNumber = getArguments().getString("pNumber");
 
-        passwordHeadingText=view.findViewById(R.id.passwordHeadingText);
-        passwordField=view.findViewById(R.id.passwordField);
-        btnSignIn=view.findViewById(R.id.btnSignIn);
+        passwordHeadingText = view.findViewById(R.id.passwordHeadingText);
+        passwordField = view.findViewById(R.id.passwordField);
+        btnSignIn = view.findViewById(R.id.btnSignIn);
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String password=passwordField.getText().toString();
-                if(TextUtils.isEmpty(password))
-                {
+                String password = passwordField.getText().toString();
+                if (TextUtils.isEmpty(password)) {
                     passwordField.setError("Enter Password");
-                }
-                else{
+                } else {
 
-                    if(!TextUtils.isEmpty(phoneNumber))
-                    {
-                        String email=phoneNumber+"@ht.com";
+                    if (!TextUtils.isEmpty(phoneNumber)) {
+                        String email = phoneNumber + "@ht.com";
                         mAuth.createUserWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                     @Override
@@ -71,8 +65,11 @@ public class FragmentPassWordSet extends Fragment {
                                         if (task.isSuccessful()) {
                                             // Sign in success, update UI with the signed-in user's information
                                             Log.e(TAG, "createUserWithEmail:success");
-                                            passwordHeadingText.setText("Successful");
-                                            // updateUI(user);
+                                            FragmentUpdateInfo fragmentUpdateInfo = new FragmentUpdateInfo();
+                                            new FragmentUtilities(getActivity())
+                                                    .replaceFragmentWithoutBackTrace(R.id.container, fragmentUpdateInfo);
+                                            //passwordHeadingText.setText("Successful");
+
                                         } else {
                                             // If sign in fails, display a message to the user.
                                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -95,7 +92,6 @@ public class FragmentPassWordSet extends Fragment {
 
         return view;
     }
-
 
 
 }

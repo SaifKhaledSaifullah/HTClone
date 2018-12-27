@@ -70,11 +70,13 @@ public class FragmentLogIn extends Fragment implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.e(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            tvSignUp.setText("Success: "+user.getUid());
+                            FragmentUpdateInfo fragmentUpdateInfo = new FragmentUpdateInfo();
+                            new FragmentUtilities(getActivity())
+                                    .replaceFragmentWithoutBackTrace(R.id.container, fragmentUpdateInfo);
+
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Log.e(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             tvSignUp.setText("Authentication failed.");

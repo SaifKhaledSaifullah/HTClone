@@ -3,8 +3,13 @@
     <string name="txt_SignUp">Don\'t have an account? Create One</string>
     <string name="txt_sign_in">LogIN</string>
     <string name="btn_continue">Continue</string>
+    <string name="btn_update_info">Update Info</string>
     <string name="hint_phone">01XXXXXXXXX</string>
     <string name="hint_password">Password</string>
+    <string name="hint_name">Your Name</string>
+    <string name="hint_address">Your Current Address</string>
     <string name="txt_phonenumber_heading">Verify your mobile number</string>
     <string name="txt_phonenumber_sub_heading">Please Enter your phone number to get a verification code</string>
+    <string name="name_text">Enter Your Name</string>
+    <string name="address_text">Enter Your Address</string>
 </resources>
