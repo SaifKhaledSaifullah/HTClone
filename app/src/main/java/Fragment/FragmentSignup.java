@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class FragmentSignup extends Fragment  implements View.OnClickListener {
     private EditText verifyCodeField;
     private Button btnSignUp;
     private Button btnVerify;
+    private ProgressBar pgBar;
 
 
     // [START declare_auth]
@@ -159,6 +161,8 @@ public class FragmentSignup extends Fragment  implements View.OnClickListener {
         btnSignUp = view.findViewById(R.id.btnSignUp);
         btnVerify = view.findViewById(R.id.btnVerify);
 
+        pgBar = view.findViewById(R.id.pgBar);
+
         // Assign Listeners
         assignClickListerns();
     }
@@ -261,10 +265,7 @@ public class FragmentSignup extends Fragment  implements View.OnClickListener {
     }
     // [END sign_in_with_phone]
 
-    private void signOut() {
-        mAuth.signOut();
-        //updateUI(STATE_INITIALIZED);
-    }
+
 
     private boolean validatePhoneNumber() {
         String phoneNumber = phoneNumberField.getText().toString();
@@ -283,8 +284,8 @@ public class FragmentSignup extends Fragment  implements View.OnClickListener {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(!(currentUser==null))
         {
-            phoneHeadingText.setText("Signed in");
-            phoneSubHeadingText.setText("User Id: "+currentUser.getUid());
+            /*phoneHeadingText.setText("Signed in");
+            phoneSubHeadingText.setText("User Id: "+currentUser.getUid());*/
         }
 
     }

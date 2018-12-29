@@ -2,38 +2,41 @@ package com.saif.htclone;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import Fragment.FragmentLogIn;
-import Fragment.FragmentSignup;
+import Fragment.FragmentUserInfo;
+import Utils.AppConfig;
 import Utils.FragmentUtilities;
 
 public class AuthenticationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
-    private FragmentLogIn fragmentLogIn;
-    private FragmentSignup fragmentSignup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        fragmentLogIn=new FragmentLogIn();
-        fragmentSignup=new FragmentSignup();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(!(currentUser==null))
-        {
-            Toast.makeText(this, "Current User Not Null", Toast.LENGTH_LONG).show();
+        if (!(currentUser == null)) {
+            FragmentUserInfo fragmentUserInfo = new FragmentUserInfo();
+            Bundle args = new Bundle();
+            args.putString(AppConfig.PHONE_NUMBER_KEY, currentUser.getEmail().replace("@ht.com", ""));
+            fragmentUserInfo.setArguments(args);
+
+            new FragmentUtilities(this)
+                    .replaceFragmentWithoutBackTrace(R.id.container, fragmentUserInfo);
+
+        } else {
+            new FragmentUtilities(this).replaceFragmentWithoutBackTrace
+                    (R.id.container, new FragmentLogIn());
         }
-        else{
-            Toast.makeText(this, "Current User  Null", Toast.LENGTH_LONG).show();
-        }
-        new FragmentUtilities(this).addFragment(R.id.container,fragmentLogIn);
+
 
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -41,4 +44,5 @@ public class AuthenticationActivity extends AppCompatActivity {
 
 
     }
+
 }

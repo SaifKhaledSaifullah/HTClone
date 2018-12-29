@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.saif.htclone.R;
 
 import java.util.PriorityQueue;
 
+import Utils.AppConfig;
 import Utils.FragmentUtilities;
 
 public class FragmentLogIn extends Fragment implements View.OnClickListener {
@@ -31,6 +33,7 @@ public class FragmentLogIn extends Fragment implements View.OnClickListener {
     private EditText etPassword;
     private TextView tvSignUp;
     private Button btnSignIn;
+    private ProgressBar login_progress;
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -51,12 +54,14 @@ public class FragmentLogIn extends Fragment implements View.OnClickListener {
         etPassword=view.findViewById(R.id.etPassword);
         tvSignUp=view.findViewById(R.id.tvSignUp);
         btnSignIn=view.findViewById(R.id.btnSignIn);
+        login_progress=view.findViewById(R.id.login_progress);
         tvSignUp.setOnClickListener(this);
         btnSignIn.setOnClickListener(this);
 
         return view;
     }
     private void signIn(String email, String password) {
+        login_progress.setVisibility(View.VISIBLE);
         Log.d(TAG, "signIn:" + email);
         String mEmail=email+"@ht.com";
 
@@ -70,16 +75,23 @@ public class FragmentLogIn extends Fragment implements View.OnClickListener {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.e(TAG, "signInWithEmail:success");
-                            FragmentUpdateInfo fragmentUpdateInfo = new FragmentUpdateInfo();
-                            new FragmentUtilities(getActivity())
-                                    .replaceFragmentWithoutBackTrace(R.id.container, fragmentUpdateInfo);
+                            FirebaseUser user = task.getResult().getUser();
+                            FragmentUserInfo fragmentUserInfo = new FragmentUserInfo();
+                            Bundle args = new Bundle();
+                            args.putString(AppConfig.PHONE_NUMBER_KEY,user.getEmail().replace("@ht.com","") );
+                            fragmentUserInfo.setArguments(args);
 
-                        } else {
+                            login_progress.setVisibility(View.GONE);
+                            new FragmentUtilities(getActivity())
+                                    .replaceFragmentWithoutBackTrace(R.id.container, fragmentUserInfo);
+
+                        }
+                        else {
                             // If sign in fails, display a message to the user.
+                            login_progress.setVisibility(View.GONE);
                             Log.e(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            tvSignUp.setText("Authentication failed.");
                         }
 
                     }

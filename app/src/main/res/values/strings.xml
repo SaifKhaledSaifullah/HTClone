@@ -12,4 +12,11 @@
     <string name="txt_phonenumber_sub_heading">Please Enter your phone number to get a verification code</string>
     <string name="name_text">Enter Your Name</string>
     <string name="address_text">Enter Your Address</string>
+    <string name="greetings_text">Hello User</string>
+    <string name="phonenumber_text">01XXXXXXXXX</string>
+    <string name="address_details">Address: (Getting from Database)</string>
+    <string name="set_user_info_text"><u>Update User Info</u> </string>
+    <string name="change_address_text"><u>Change Address</u> </string>
+    <string name="change_password_text"><u>Change Password</u> </string>
+    <string name="logout_text"><u>Log Out</u> </string>
 </resources>

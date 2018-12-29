@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class FragmentPassWordSet extends Fragment {
     private TextView passwordHeadingText;
     private Button btnSignIn;
     private EditText passwordField;
+    private ProgressBar pgBar;
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
@@ -48,6 +50,7 @@ public class FragmentPassWordSet extends Fragment {
         passwordHeadingText = view.findViewById(R.id.passwordHeadingText);
         passwordField = view.findViewById(R.id.passwordField);
         btnSignIn = view.findViewById(R.id.btnSignIn);
+        pgBar = view.findViewById(R.id.pgBar);
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,24 +60,31 @@ public class FragmentPassWordSet extends Fragment {
                 } else {
 
                     if (!TextUtils.isEmpty(phoneNumber)) {
+                        pgBar.setVisibility(View.VISIBLE);
                         String email = phoneNumber + "@ht.com";
                         mAuth.createUserWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
+                                            pgBar.setVisibility(View.GONE);
                                             // Sign in success, update UI with the signed-in user's information
                                             Log.e(TAG, "createUserWithEmail:success");
-                                            FragmentUpdateInfo fragmentUpdateInfo = new FragmentUpdateInfo();
-                                            new FragmentUtilities(getActivity())
-                                                    .replaceFragmentWithoutBackTrace(R.id.container, fragmentUpdateInfo);
+
+                                            Toast.makeText(getActivity(),
+                                                    "Password Set Successfully",
+                                                    Toast.LENGTH_SHORT).show();
+                                            mAuth.signOut();
+                                            new FragmentUtilities(getActivity()).replaceFragmentWithoutBackTrace(R.id.container,new FragmentLogIn());
                                             //passwordHeadingText.setText("Successful");
 
                                         } else {
+                                            pgBar.setVisibility(View.GONE);
                                             // If sign in fails, display a message to the user.
-                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                            passwordHeadingText.setText("Failure");
-                                            Toast.makeText(getActivity(), "Authentication failed.",
+                                            Log.e(TAG, "createUserWithEmail:failure", task.getException());
+                                           //passwordHeadingText.setText("Failure");
+                                            Toast.makeText(getActivity(),
+                                                    "Couldn't Set Password, Please check internet connection",
                                                     Toast.LENGTH_SHORT).show();
                                             // updateUI(null);
                                         }

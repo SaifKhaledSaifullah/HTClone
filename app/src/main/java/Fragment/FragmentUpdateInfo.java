@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ public class FragmentUpdateInfo extends Fragment {
     private EditText nameField;
     private EditText addressField;
     private Button btnUpdateInfo;
+    private ProgressBar pgBar;
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -47,6 +49,7 @@ public class FragmentUpdateInfo extends Fragment {
         nameField=view.findViewById(R.id.nameField);
         addressField=view.findViewById(R.id.addressField);
         btnUpdateInfo=view.findViewById(R.id.btnUpdateInfo );
+        pgBar=view.findViewById(R.id.pgBar );
         btnUpdateInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,13 +75,8 @@ public class FragmentUpdateInfo extends Fragment {
         }
     }
     public void addData(String name, String address) {
-        // Adding child to the root
-        // databaseReference.child("Name").setValue("Khaled Saifullah");
 
-        // Adding random generated child in the db
-        // databaseReference.push().setValue("100");
-
-        // Adding key and values  with random generated parent name
+        pgBar.setVisibility(View.VISIBLE);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(!(currentUser==null))
@@ -91,18 +89,22 @@ public class FragmentUpdateInfo extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
+                        pgBar.setVisibility(View.GONE);
                         // show task successful msg.
                         Toast.makeText(getActivity(), "Data Updated Successfully", Toast.LENGTH_LONG).show();
                     } else {
+                        pgBar.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), "Couldn't update data, Please check Internet Connection", Toast.LENGTH_LONG).show();
                         // show task not successful msg.
                     }
                 }
             });
         }
         else{
-            Toast.makeText(getActivity(), "Current User  Null", Toast.LENGTH_LONG).show();
+
         }
 
 
     }
+
 }
