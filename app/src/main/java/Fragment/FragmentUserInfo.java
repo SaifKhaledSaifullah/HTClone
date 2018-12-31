@@ -129,7 +129,7 @@ public class FragmentUserInfo extends Fragment implements View.OnClickListener {
                 new FragmentUtilities(getActivity()).replaceFragment(R.id.container,new FragmentUpdateInfo());
                 break;
             case R.id.changeAddressText:
-                Toast.makeText(getActivity(), "Working on it", Toast.LENGTH_LONG).show();
+                new FragmentUtilities(getActivity()).replaceFragment(R.id.container,new FragmentUpdateLocation());
                 break;
             case R.id.changePasswordText:
                 Toast.makeText(getActivity(), "Working on it", Toast.LENGTH_LONG).show();

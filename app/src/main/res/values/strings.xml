@@ -19,4 +19,5 @@
     <string name="change_address_text"><u>Change Address</u> </string>
     <string name="change_password_text"><u>Change Password</u> </string>
     <string name="logout_text"><u>Log Out</u> </string>
+    <string name="title_activity_maps">Map</string>
 </resources>
