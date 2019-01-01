@@ -149,13 +149,13 @@ public class FragmentUpdateLocation extends Fragment implements OnMapReadyCallba
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (!(currentUser == null)) {
-            HashMap<String, String> map = new HashMap<String, String>();
-            map.put("Name", userName);
-            map.put("Address", userAddress);
-            map.put("Lat", lat);
-            map.put("Lang", lang);
             // add data with checking if data has stored successfully
-            databaseReference.child(currentUser.getEmail().replace("@ht.com", "")).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+            databaseReference.child(currentUser.getEmail().replace("@ht.com", ""))
+                    .child("Lat").setValue(lat);
+            databaseReference.child(currentUser.getEmail().replace("@ht.com", ""))
+                    .child("Lang").setValue(lang).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
@@ -169,6 +169,25 @@ public class FragmentUpdateLocation extends Fragment implements OnMapReadyCallba
                     }
                 }
             });
+
+
+
+
+
+            /*databaseReference.child(currentUser.getEmail().replace("@ht.com", "")).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        //  pgBar.setVisibility(View.GONE);
+                        // show task successful msg.
+                        Toast.makeText(getActivity(), "Location Updated Successfully", Toast.LENGTH_LONG).show();
+                    } else {
+                        //pgBar.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), "Couldn't update location, Please check Internet Connection", Toast.LENGTH_LONG).show();
+                        // show task not successful msg.
+                    }
+                }
+            });*/
         } else {
 
         }
